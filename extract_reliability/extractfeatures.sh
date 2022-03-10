@@ -13,6 +13,6 @@ ifdebug=${6:-true}  	        # if debug mode should be used, default is true
 mkdir -p $savedir
 
 # running extractvfeatures script
-python3 -u local/extractvfeatures.py $sdir $savedir $pretrainedmodeldir $dset $ifcuda $ifdebug  || exit 1;
+python3 -u local/extract_reliability/extractvfeatures.py $sdir $savedir $pretrainedmodeldir $dset $ifcuda $ifdebug  || exit 1;
 
 exit 0
