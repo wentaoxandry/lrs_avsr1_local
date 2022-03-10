@@ -70,22 +70,22 @@ if [ "$dset" = pretrain ] ; then
     echo "pretrain"
     if [ "$ifsegment" = false ] ; then
         mkdir -p Dataset_processing/LRS2/pretrainsegment
-        python3 -u local/preppretrainaudio.py  $sourcedir/pretrain $metadir $datadir $dset Dataset_processing/LRS2/pretrainsegment $ifmulticore $ifsegment || exit 1;
+        python3 -u local/data_prepare/preppretrainaudio.py  $sourcedir/pretrain $metadir $datadir $dset Dataset_processing/LRS2/pretrainsegment $ifmulticore $ifsegment || exit 1;
         for file in text utt2spk wav.scp; do
 	    sort -u $datadir/$file -o $datadir/$file || exit 1;
         done
     else
-        python3 -u local/pretrain.py  $sourcedir/pretrain $metadir $datadir $dset $nj $ifsegment || exit 1;
+        python3 -u local/data_prepare/pretrain.py  $sourcedir/pretrain $metadir $datadir $dset $nj $ifsegment || exit 1;
         for file in text utt2spk wav.scp segments; do
 	    sort -u $datadir/$file -o $datadir/$file || exit 1;
         done
-	python3 local/creatsegfile.py $datadir \
+	python3 local/data_prepare/creatsegfile.py $datadir \
 			   $sourcedir ${dset} $ifmulticore || exit 1;
 
     fi
 else
    echo $dset
-   python3 -u local/prepaudio.py  $sourcedir/main $metadir $datadir $dset $ifmulticore || exit 1;
+   python3 -u local/data_prepare/prepaudio.py  $sourcedir/main $metadir $datadir $dset $ifmulticore || exit 1;
    for file in text utt2spk wav.scp; do
 	sort -u $datadir/$file -o $datadir/$file || exit 1;
    done

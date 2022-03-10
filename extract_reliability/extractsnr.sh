@@ -28,7 +28,7 @@ if [ "$dset" = pretrain ] || [ "$dset" = Train ] ; then
 	mv DeepXi/set/test_noisy_speech/* $srcdir/$dset
 	mv DeepXi/out/mhanet-1.1c/e200/xi_hat/* $savematdir/$dset
 
-	python3 -u local/convertsnr.py $savematdir/$dset $saveptdir/$dset $ifmulticore || exit 1;
+	python3 -u local/extract_reliability/convertsnr.py $savematdir/$dset $saveptdir/$dset $ifmulticore || exit 1;
 	rm -rf $savematdir/$dset/*
     done
     rm -rf $savematdir/${dset}_filelists
@@ -42,5 +42,5 @@ else
     mv DeepXi/set/test_noisy_speech $srcdir/$dset
     mv DeepXi/out/mhanet-1.1c/e200/xi_hat/* $savematdir/$dset
 
-    python3 -u local/convertsnr.py $savematdir/$dset $saveptdir/$dset $ifmulticore || exit 1;
+    python3 -u local/extract_reliability/convertsnr.py $savematdir/$dset $saveptdir/$dset $ifmulticore || exit 1;
 fi

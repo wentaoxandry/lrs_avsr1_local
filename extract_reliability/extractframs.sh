@@ -59,6 +59,6 @@ elif [[ "$corpus" == "LRS3" ]] ; then
 fi
 
 # run python script for frame extraction
-python3 -u local/segvideo.py $sourcedir $savedset $csvsavedir $audiodir/$dset $dset $corpus $ifsegment $ifmulticore
+python3 -u local/extract_reliability/segvideo.py $sourcedir $savedset $csvsavedir $audiodir/$dset $dset $corpus $ifsegment $ifmulticore
 
 exit 0
