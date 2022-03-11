@@ -59,7 +59,7 @@ fi
 
 if [ "$ifsegpretrain" = true ] ; then
     echo "Create segmentinfo"
-    python3 local/lrs3processing/audio/segmentinfo.py $sourcedir $datadir $filelistdir $dset $ifmulticore 
+    python3 local/data_prepare/lrs3_segment.py $sourcedir $datadir $filelistdir $dset $ifmulticore 
     sort $audiodir/pretrain_segmentinfo/pretrainlist -o  $audiodir/pretrain_segmentinfo/pretrainlist
     sort $audiodir/pretrain_segmentinfo/pretrain_text -o  $audiodir/pretrain_segmentinfo/pretrain_text
     sort $audiodir/pretrain_segmentinfo/pretrain_timeinfo -o  $audiodir/pretrain_segmentinfo/pretrain_timeinfo
@@ -75,7 +75,7 @@ if [ "$ifsegpretrain" = true ] ; then
     cp $audiodir/${dset}_segmentinfo/* $kaldipretraindir
     wavdir=$(pwd)/$audiodir/${dset}segment
     sourcedir_segment=$audiodir/pretrainsegment
-    python3 local/lrs3processing/audio/kaldi_prep_segment.py $sourcedir \
+    python3 local/data_prepare/lrs3_data_segment.py $sourcedir \
 	${filelistdir}_segmentinfo \
         $kaldipretraindir \
         $dset \
@@ -89,7 +89,7 @@ else
     rm -rf $kaldipretraindir
     mkdir $kaldipretraindir
     wavdir=$(pwd)/$audiodir/$dset
-    python3 local/lrs3processing/audio/kaldi_prep_nosegment.py $filelistdir/$filename \
+    python3 local/data_prepare/lrs3_data_nosegment.py $filelistdir/$filename \
         $kaldipretraindir \
         $wavdir \
         $sourcedir \
@@ -104,7 +104,7 @@ echo "Kaldi files created"
 ############################## audio processing ###############################################
 echo "Make seginfo file for LRS3 ${dset} set"
 
-python3 local/creatsegfile.py $kaldipretraindir \
+python3 local/data_prepare/creatsegfile.py $kaldipretraindir \
 			   $videodir ${dset} $ifmulticore || exit 1;
 
 exit 0
